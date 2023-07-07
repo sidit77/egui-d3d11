@@ -1,15 +1,15 @@
 [package]
 name = "egui-d3d11"
-version = "0.21.0"
+version = "0.22.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 bytemuck = "1"
-egui = { version = "0.21", features = ["bytemuck"] }
+egui = { version = "0.22", features = ["bytemuck"] }
 log = "0.4"
-egui-winit = { version = "0.21", optional = true }
+egui-winit = { version = "0.22", optional = true }
 
 [dependencies.windows]
 version = "0.48"

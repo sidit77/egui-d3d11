@@ -7,12 +7,12 @@ edition = "2021"
 
 [dependencies]
 bytemuck = "1"
-egui = { version = "0.22", features = ["bytemuck"] }
+egui = { version = "0.23", features = ["bytemuck"] }
 log = "0.4"
-egui-winit = { version = "0.22", optional = true }
+egui-winit = { version = "0.23", optional = true }
 
 [dependencies.windows]
-version = "0.48"
+version = "0.51"
 features = [
     "Win32_Foundation",
     "Win32_Graphics_Direct3D11",
@@ -21,4 +21,4 @@ features = [
 ]
 
 [build-dependencies]
-windows = {version = "0.48", features=["Win32_Graphics_Direct3D_Fxc"]}
+windows = {version = "0.51", features=["Win32_Graphics_Direct3D_Fxc"]}

@@ -4,6 +4,7 @@ use std::mem::size_of;
 use bytemuck::Pod;
 use egui::epaint::{ImageDelta, Primitive, Vertex};
 use egui::{ClippedPrimitive, Mesh, PaintCallbackInfo, Rect, TextureFilter, TextureId, TextureOptions};
+use windows::core::s;
 use windows::Win32::Foundation::{FALSE, RECT, TRUE};
 use windows::Win32::Graphics::Direct3D11::*;
 use windows::Win32::Graphics::Direct3D::D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
@@ -78,8 +79,8 @@ impl Painter {
                 &D3D11_BUFFER_DESC {
                     ByteWidth: (200 * size_of::<Vertex>()) as u32,
                     Usage: D3D11_USAGE_DYNAMIC,
-                    BindFlags: D3D11_BIND_VERTEX_BUFFER,
-                    CPUAccessFlags:  D3D11_CPU_ACCESS_WRITE,
+                    BindFlags: D3D11_BIND_VERTEX_BUFFER.0 as u32,
+                    CPUAccessFlags:  D3D11_CPU_ACCESS_WRITE.0 as u32,
                     ..Default::default()
                 }, None, ptr)
         });
@@ -88,8 +89,8 @@ impl Painter {
                 &D3D11_BUFFER_DESC {
                     ByteWidth: (200 * size_of::<u32>()) as u32,
                     Usage: D3D11_USAGE_DYNAMIC,
-                    BindFlags: D3D11_BIND_INDEX_BUFFER,
-                    CPUAccessFlags:  D3D11_CPU_ACCESS_WRITE,
+                    BindFlags: D3D11_BIND_INDEX_BUFFER.0 as u32,
+                    CPUAccessFlags:  D3D11_CPU_ACCESS_WRITE.0 as u32,
                     ..Default::default()
                 }, None, ptr)
         });
@@ -98,8 +99,8 @@ impl Painter {
                 &D3D11_BUFFER_DESC {
                     ByteWidth: (size_of::<[f32;4]>()) as u32,
                     Usage: D3D11_USAGE_DYNAMIC,
-                    BindFlags: D3D11_BIND_CONSTANT_BUFFER,
-                    CPUAccessFlags:  D3D11_CPU_ACCESS_WRITE,
+                    BindFlags: D3D11_BIND_CONSTANT_BUFFER.0 as u32,
+                    CPUAccessFlags:  D3D11_CPU_ACCESS_WRITE.0 as u32,
                     ..Default::default()
                 }, None, ptr)
         });
@@ -114,7 +115,7 @@ impl Painter {
         let input_layout = make_resource(|ptr| unsafe {
             device.CreateInputLayout(&[
                 D3D11_INPUT_ELEMENT_DESC {
-                    SemanticName: windows::s!("POSITION"),
+                    SemanticName: s!("POSITION"),
                     SemanticIndex: 0,
                     Format: DXGI_FORMAT_R32G32_FLOAT,
                     InputSlot: 0,
@@ -123,7 +124,7 @@ impl Painter {
                     InstanceDataStepRate: 0,
                 },
                 D3D11_INPUT_ELEMENT_DESC {
-                    SemanticName: windows::s!("TEXCOORD"),
+                    SemanticName: s!("TEXCOORD"),
                     SemanticIndex: 0,
                     Format: DXGI_FORMAT_R32G32_FLOAT,
                     InputSlot: 0,
@@ -132,7 +133,7 @@ impl Painter {
                     InstanceDataStepRate: 0,
                 },
                 D3D11_INPUT_ELEMENT_DESC {
-                    SemanticName: windows::s!("COLOR"),
+                    SemanticName: s!("COLOR"),
                     SemanticIndex: 0,
                     Format: DXGI_FORMAT_R8G8B8A8_UNORM,
                     InputSlot: 0,
@@ -381,9 +382,9 @@ impl Texture {
                     Quality: 0,
                 },
                 Usage: D3D11_USAGE_DEFAULT,
-                BindFlags: D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET,
-                CPUAccessFlags: D3D11_CPU_ACCESS_FLAG(0),
-                MiscFlags: D3D11_RESOURCE_MISC_FLAG(0),
+                BindFlags: (D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET).0 as u32,
+                CPUAccessFlags: 0,
+                MiscFlags: 0,
             }, None, ptr)
         });
         let view = make_resource(|ptr| unsafe {

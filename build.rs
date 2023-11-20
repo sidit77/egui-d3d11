@@ -1,4 +1,5 @@
 use std::path::Path;
+use windows::core::s;
 use windows::Win32::Graphics::Direct3D::Fxc::D3DCompile;
 
 fn main() {
@@ -10,11 +11,11 @@ fn main() {
         D3DCompile(
             hlsl_file.as_ptr() as _,
             hlsl_file.len(),
-            windows::s!("shader.hlsl"),
+            s!("shader.hlsl"),
             None,
             None,
-            windows::s!("vs_main"),
-            windows::s!("vs_5_0"),
+            s!("vs_main"),
+            s!("vs_5_0"),
             0,
             0,
             &mut vs_blob,
@@ -26,11 +27,11 @@ fn main() {
         D3DCompile(
             hlsl_file.as_ptr() as _,
             hlsl_file.len(),
-            windows::s!("shader.hlsl"),
+            s!("shader.hlsl"),
             None,
             None,
-            windows::s!("ps_main"),
-            windows::s!("ps_5_0"),
+            s!("ps_main"),
+            s!("ps_5_0"),
             0,
             0,
             &mut ps_blob,
